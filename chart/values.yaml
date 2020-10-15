@@ -395,6 +395,8 @@ pgbouncer:
   logConnections: 0
 
 redis:
+  # set to true if redis resources/service should be created
+  enabled: false
   terminationGracePeriodSeconds: 600
 
   persistence:
@@ -416,6 +418,8 @@ redis:
   # If set use as redis secret
   passwordSecretName: ~
   brokerURLSecretName: ~
+  # if using an external redis
+  url: ~
 
   # Else, if password is set, create secret with it,
   # else generate a new one on install
