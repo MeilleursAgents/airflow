@@ -499,13 +499,18 @@ redis:
   #   cpu: 100m
   #   memory: 128Mi
 
-  # If set use as redis secret
-  passwordSecretName: ~
+  # if using an external redis, set one of those
+  ## Name of the secret with the full broker url
   brokerURLSecretName: ~
+  ## Full broker url
+  brokerURL: ~
 
-  # Else, if password is set, create secret with it,
-  # else generate a new one on install
+  # If using the internal redis of this chart
+  ## What is the name of the secret with the password
+  passwordSecretName: ~
+  ## Or what password should be used on instance creation
   password: ~
+  # Otherwise a new password will be generated on install
 
   # This setting tells kubernetes that its ok to evict
   # when it wants to scale a node down.
