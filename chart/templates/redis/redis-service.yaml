@@ -18,7 +18,8 @@
 ################################
 ## Airflow Redis Service
 #################################
-{{- if eq .Values.executor "CeleryExecutor" }}
+{{- $redis_is_deployed_by_chart := not (or .Values.redis.brokerURLSecretName .Values.redis.brokerURL) }}
+{{- if (and $redis_is_deployed_by_chart (eq .Values.executor "CeleryExecutor")) }}
 kind: Service
 apiVersion: v1
 metadata:
