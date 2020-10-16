@@ -18,7 +18,8 @@
 ################################
 ## Airflow Redis NetworkPolicy
 #################################
-{{- if and (eq .Values.redis.enabled true) (eq .Values.networkPolicies.enabled true) (eq .Values.executor "CeleryExecutor") }}
+{{- $redis_is_deployed_by_chart := not (or .Values.redis.brokerURLSecretName .Values.redis.brokerURL) }}
+{{- if (and $redis_is_deployed_by_chart .Values.networkPolicies.enabled (eq .Values.executor "CeleryExecutor")) }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:

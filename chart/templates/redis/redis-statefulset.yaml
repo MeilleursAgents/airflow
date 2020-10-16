@@ -18,7 +18,8 @@
 ################################
 ## Airflow Redis StatefulSet
 #################################
-{{- if and (eq .Values.executor "CeleryExecutor") (eq .Values.redis.enabled true) }}
+{{- $redis_is_deployed_by_chart := not (or .Values.redis.brokerURLSecretName .Values.redis.brokerURL) }}
+{{- if (and $redis_is_deployed_by_chart (eq .Values.executor "CeleryExecutor")) }}
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
