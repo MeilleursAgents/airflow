@@ -107,6 +107,8 @@ airflowPodAnnotations: {}
 
 # Enable RBAC (default on most clusters these days)
 rbacEnabled: true
+# What kind of rbac should be used (Role or ClusterRole)
+rbacKind: ClusterRole
 
 # Airflow executor
 # Options: SequentialExecutor, LocalExecutor, CeleryExecutor, KubernetesExecutor
