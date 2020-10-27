@@ -121,15 +121,23 @@ spec:
               - -c
               - |
                 import os
+                import sys
+
                 os.environ['AIRFLOW__CORE__LOGGING_LEVEL'] = 'ERROR'
                 os.environ['AIRFLOW__LOGGING__LOGGING_LEVEL'] = 'ERROR'
 
-                from airflow.jobs.scheduler_job import SchedulerJob
-                from airflow.utils.net import get_hostname
-                import sys
+                try:
+                  from airflow.jobs.scheduler_job import SchedulerJob
+                  from airflow.utils.net import get_hostname
 
-                job = SchedulerJob.most_recent_job()
-                sys.exit(0 if job.is_alive() and job.hostname == get_hostname() else 1)
+                  job = SchedulerJob.most_recent_job()
+                  sys.exit(0 if job.is_alive() and job.hostname == get_hostname() else 1)
+                except ImportError:
+                  # on airflow 1.10.2, airflow.jobs.scheduler_job is not available
+                  # so it's not possible to easily check the health of the scheduler
+                  # this change will only impact old airflow versions
+                  # we should update airflow anyway at some point.
+                  sys.exit(0)
           resources:
 {{ toYaml .Values.scheduler.resources | indent 12 }}
           volumeMounts:
