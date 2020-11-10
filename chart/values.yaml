@@ -47,6 +47,11 @@ ingress:
   # Enable ingress resource
   enabled: false
 
+  backendConfig:
+    enabled: false
+    securityPolicy:
+      name: ""
+
   # Configs for the Ingress of the web Service
   web:
     # Annotations for the web Ingress
