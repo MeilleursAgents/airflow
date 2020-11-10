@@ -94,7 +94,8 @@ spec:
                 {{- end }}
                 - {{ printf "localhost:%s" (.Values.ports.flowerUI | toString) }}
             initialDelaySeconds: 10
-            periodSeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
           readinessProbe:
             failureThreshold: 10
             exec:
@@ -106,7 +107,8 @@ spec:
                 {{- end }}
                 - {{ printf "localhost:%s" (.Values.ports.flowerUI | toString) }}
             initialDelaySeconds: 10
-            periodSeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
           env:
             {{- if (or .Values.flower.secretName (and .Values.flower.username .Values.flower.password))}}
             - name: AIRFLOW__CELERY__FLOWER_BASIC_AUTH
