@@ -33,6 +33,10 @@ metadata:
 {{- with .Values.labels }}
 {{ toYaml . | indent 4 }}
 {{- end }}
+{{- if .Values.ingress.backendConfig.enabled }}
+  annotations:
+    cloud.google.com/backend-config: {{ dict "default" (printf "%s-airflow-backend-config" .Release.Name) | toJson | quote }}
+{{- end }}
 spec:
   type: {{ .Values.flower.service.type }}
   selector:

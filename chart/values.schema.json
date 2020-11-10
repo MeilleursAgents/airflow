@@ -53,6 +53,26 @@
                     "description": "Enable ingress resource.",
                     "type": "boolean"
                 },
+                "backendConfig": {
+                  "description": "Configuration for Google backendConfig object.",
+                  "type": "object",
+                  "properties": {
+                      "enabled": {
+                          "description": "Enable backendConfig resource.",
+                          "type": "boolean"
+                      },
+                      "securityPolicy": {
+                          "description": "Configuration for Ingress cloud armor.",
+                          "type": "object",
+                          "properties": {
+                              "name": {
+                                  "description": "Name of the cloud armor to use on Ingress.",
+                                  "type": "string"
+                              }
+                          }
+                      }
+                  }
+                },
                 "web": {
                     "description": "Configuration for the Ingress of the web Service.",
                     "type": "object",
