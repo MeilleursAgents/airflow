@@ -1,0 +1,11 @@
+{{- if .Values.ingress.backendConfig.enabled -}}
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: {{ .Release.Name }}-airflow-backend-config
+spec:
+{{- with .Values.ingress.backendConfig.securityPolicy }}
+  securityPolicy:
+    {{ toYaml . | indent 2 }}
+{{- end }}
+{{- end }}

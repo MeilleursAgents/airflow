@@ -35,6 +35,9 @@ metadata:
 {{- with .Values.webserver.service.annotations }}
 {{- toYaml . | nindent 4 }}
 {{- end }}
+    {{- if .Values.ingress.backendConfig.enabled }}
+    cloud.google.com/backend-config: {{ dict "default" (printf "%s-airflow-backend-config" .Release.Name) | toJson | quote }}
+    {{- end }}
 spec:
   type: {{ .Values.webserver.service.type }}
   selector:
