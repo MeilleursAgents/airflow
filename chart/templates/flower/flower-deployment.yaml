@@ -85,14 +85,16 @@ spec:
               path: /
               port: {{ .Values.ports.flowerUI }}
             initialDelaySeconds: 10
-            periodSeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
           readinessProbe:
             failureThreshold: 10
             httpGet:
               path: /
               port: {{ .Values.ports.flowerUI }}
             initialDelaySeconds: 10
-            periodSeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
           env:
           {{- include "standard_airflow_environment" . | indent 10 }}
       volumes:
